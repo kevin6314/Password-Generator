@@ -11,21 +11,7 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-function generatePassword (){
-  //your code here
-  //var numChar = window.prompt
-  //var includeNums = window.confirm will be true/false
-  //array for each character type
-  //var numArray = ["0","1"]
-  //if statement
-  //if true push that array into a new array
-
-  return password;
-};
-
-// Ask and set criteria to use: length, char types
-//input length of password = 8 to 128 char
-//input types of characters: lowercase, uppercase, numeric, and/or special chars
+//Create object to store user data
 
 let userOptions = {
   charLength: Number,
@@ -35,45 +21,103 @@ let userOptions = {
   specialChar: Boolean
 };
 
-function getInput(){
+//Create my empty arrays
+
+let specialCharOptions = [" ","!","","#","$","%","&","'","(",")","*","+",",","-",".","/",":",";","<","=",">","?","@","[","]","^","_","`","{","|","}","~"];
+let upperOptions = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+let lowerOptions = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+let numsOptions = ['0','1','2','3','4','5','6','7','8','9'];
+let passwordArray = [];
+let randomOptions = [];
+
+function generatePassword (){
+  
+  getLength();
+  getCharacters();
+  validateInput();
+  
+  for (var i = 0; i < passwordArray.length; i++){
+    var randomIndex = Math.floor(Math.random()*randomOptions.length);
+    passwordArray[i] = randomOptions[randomIndex];
+  }  
+
+  let password = passwordArray.join('');
+  console.log(password);
+  return password;
+};
+
+
+//function to get user input
+function getLength(){
 
   var chooseLength = window.prompt("How many numbers do you want to use between 2 and 128?");
   userOptions.charLength=chooseLength;
+
+  while (chooseLength < 2 || chooseLength > 128 || isNaN(chooseLength)) {
+    alert("Please enter a valid number!");
+    var chooseLength = window.prompt("How many numbers do you want to use between 2 and 128?");
+    userOptions.charLength=chooseLength;
+  }
+
+  passwordArray.length = chooseLength;
   console.log(userOptions.charLength);
-
-  var chooseLower = window.confirm("Lower?");
-  userOptions.charLower=chooseLower;
-  console.log(userOptions.charLower);
-  
-  var chooseUpper = window.confirm("Upper?");
-  userOptions.charUpper=chooseUpper;
-  console.log(userOptions.charUpper);
-  
-  var chooseNums = window.confirm("Numbers?");
-  userOptions.charNums=chooseNums;
-  console.log(userOptions.charNums);
-  
-  var chooseChars = window.confirm("Characters?");
-  userOptions.specialChar=chooseChars;
-  console.log(userOptions.specialChar);
-
-  validateInput();
+  return passwordArray;
 }
 
+function getCharacters(){
+
+  //add lower characters to the options array
+  var chooseLower = window.confirm("Lower?");
+  userOptions.charLower=chooseLower;
+  
+  if (chooseLower){
+    randomOptions.push(...lowerOptions);
+  } 
+  console.log(randomOptions);
+
+  //add upper characters to the options array
+  var chooseUpper = window.confirm("Upper?");
+  userOptions.charUpper=chooseUpper;
+  
+  if (chooseUpper){
+    randomOptions.push(...upperOptions);
+  }
+  console.log(randomOptions);
+
+  //add numbers to the options array
+  var chooseNums = window.confirm("Numbers?");
+  userOptions.charNums=chooseNums;
+  
+  if (chooseNums){
+    randomOptions.push(...numsOptions);
+  }
+  console.log(randomOptions);
+  
+  //add characters to the options array
+  var chooseChars = window.confirm("Characters?");
+  userOptions.specialChar=chooseChars;
+
+  if (chooseChars){
+    randomOptions.push(...specialCharOptions);
+  }
+  console.log(randomOptions);
+
+  return randomOptions;
+  
+}
+
+//function to validate that the input the user provided is valid
 function validateInput(){
-    let countFalse = 0;
+    let countTrue = 0;
 
     for (let key in userOptions) {
-      if (userOptions[key] === false){
-        countFalse++;
+      if (userOptions[key] === true){
+        countTrue++;
       }
     }
 
-    if ((countFalse > 3) || (Number.isInteger(userOptions.charLength)) ||
-      (userOptions.charLength < 2) || (userOptions.charLength > 128)) {
-      console.log("Please try again!")
-    } else {
-      console.log("Generate password");
-    }
-
+    while (countTrue < 1) {
+      alert("Please try again!");
+      getCharacters();
+    } 
   }
