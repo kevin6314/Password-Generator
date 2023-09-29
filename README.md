@@ -38,7 +38,5 @@ THEN the password is either displayed in an alert or written to the page
 
 The following image shows the web application's appearance and functionality:
 
-![Alt text](image.png)
-
 ![The Password Generator application](./Assets/03-javascript-homework-demo.png)
 
