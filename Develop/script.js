@@ -11,6 +11,14 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
+//Add event listener to copy code with one click
+var passwordTextarea = document.querySelector('#password');
+passwordTextarea.addEventListener("click", function(){
+  passwordTextarea.select();
+  document.execCommand('copy');
+  alert("Password copied to clipboard");
+})
+
 //Create object to store user data
 
 let userOptions = {
@@ -30,6 +38,8 @@ let numsOptions = ['0','1','2','3','4','5','6','7','8','9'];
 let passwordArray = [];
 let randomOptions = [];
 
+//Generate my password
+
 function generatePassword (){
   
   getLength();
@@ -47,7 +57,8 @@ function generatePassword (){
 };
 
 
-//function to get user input
+//Get user input on the length of the password
+
 function getLength(){
 
   var chooseLength = window.prompt("How many numbers do you want to use between 2 and 128?");
@@ -63,6 +74,8 @@ function getLength(){
   console.log(userOptions.charLength);
   return passwordArray;
 }
+
+//Get user input on the characters to use
 
 function getCharacters(){
 
@@ -106,7 +119,7 @@ function getCharacters(){
   
 }
 
-//function to validate that the input the user provided is valid
+//Validate that the input the user provided is valid
 function validateInput(){
     let countTrue = 0;
 
