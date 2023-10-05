@@ -69,12 +69,12 @@ function resetArrays(){
 
 function getLength(){
 
-  var chooseLength = window.prompt("How many characters do you want to use between 2 and 128?");
+  var chooseLength = window.prompt("How many characters do you want to use between 8 and 128?");
   userOptions.charLength=chooseLength;
 
-  while (chooseLength < 2 || chooseLength > 128 || isNaN(chooseLength)) {
+  while (chooseLength < 8 || chooseLength > 128 || isNaN(chooseLength)) {
     alert("Please enter a valid number!");
-    var chooseLength = window.prompt("How many characters do you want to use between 2 and 128?");
+    var chooseLength = window.prompt("How many characters do you want to use between 8 and 128?");
     userOptions.charLength=chooseLength;
   }
 
@@ -133,7 +133,6 @@ function getCharacters(){
 
 //Validate that the input the user provided is valid
 function validateInput(){
-    // let countTrue = 0;
 
     if (randomOptions.length < 1) {
       alert("Please try again!");
